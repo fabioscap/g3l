@@ -38,5 +38,13 @@ void g3l::G3L::disconnect() {
   connected_ = false;
 }
 
+tinyxml2::XMLDocument* g3l::G3L::parse_urdf(const std::string& xml_path) {
+  auto doc = new tinyxml2::XMLDocument;
+
+  doc->LoadFile(xml_path.c_str());
+
+  return doc;
+}
+
 template struct g3l::Session_<Kinova::Api::TransportClientTcp>;
 template struct g3l::Session_<Kinova::Api::TransportClientUdp>;

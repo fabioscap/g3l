@@ -4,7 +4,12 @@ target_link_libraries(utilities PUBLIC cxxopts KortexApiCpp tinyxml2::tinyxml2)
 
 
 
-add_executable(main main.cpp)
-target_link_libraries(main
+add_executable(test_read test_read.cpp)
+target_link_libraries(test_read
+utilities
+)
+
+add_executable(test_urdf test_urdf.cpp)
+target_link_libraries(test_urdf
 utilities
 )

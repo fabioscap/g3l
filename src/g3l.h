@@ -20,6 +20,8 @@ class G3L {
   void connect();
   void disconnect();
 
+  tinyxml2::XMLDocument* parse_urdf(const std::string&);
+
   // private:
   bool connected_{false};
 
