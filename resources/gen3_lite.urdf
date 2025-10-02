@@ -1,0 +1,492 @@
+<?xml version="1.0"?>
+<robot name="kinova"> <!-- create link fixed to the "world" -->
+  <link name="world" />
+  <ros2_control name="KortexMultiInterfaceHardware" type="system">
+    <hardware>
+      <plugin>kortex_driver/KortexMultiInterfaceHardware</plugin>
+      <param name="robot_ip">xxx.yyy.zzz.www</param>
+      <param name="username">admin</param>
+      <param name="password">admin</param>
+      <param name="port">10000</param>
+      <param name="port_realtime">10001</param>
+      <param name="session_inactivity_timeout_ms">60000</param>
+      <param name="connection_inactivity_timeout_ms">2000</param>
+      <param name="tf_prefix">&quot;&quot;</param>
+      <param name="use_internal_bus_gripper_comm">False</param>
+      <param name="gripper_joint_name">finger_joint</param>
+      <param name="gripper_max_velocity">100.0</param>
+      <param name="gripper_max_force">100.0</param>
+    </hardware>
+    <joint name="joint_1">
+      <command_interface name="position">
+        <param name="min">{-2*pi}</param>
+        <param name="max">{2*pi}</param>
+      </command_interface>
+      <state_interface name="position">
+        <param name="initial_value">0.0</param>
+      </state_interface>
+      <state_interface name="velocity" />
+      <state_interface name="effort" />
+    </joint>
+    <joint name="joint_2">
+      <command_interface name="position">
+        <param name="min">-2.41</param>
+        <param name="max">2.41</param>
+      </command_interface>
+      <state_interface name="position">
+        <param name="initial_value">0.0</param>
+      </state_interface>
+      <state_interface name="velocity" />
+      <state_interface name="effort" />
+    </joint>
+    <joint name="joint_3">
+      <command_interface name="position">
+        <param name="min">-2.66</param>
+        <param name="max">2.66</param>
+      </command_interface>
+      <state_interface name="position">
+        <param name="initial_value">0.0</param>
+      </state_interface>
+      <state_interface name="velocity" />
+      <state_interface name="effort" />
+    </joint>
+    <joint name="joint_4">
+      <command_interface name="position">
+        <param name="min">{-2*pi}</param>
+        <param name="max">{2*pi}</param>
+      </command_interface>
+      <state_interface name="position">
+        <param name="initial_value">0.0</param>
+      </state_interface>
+      <state_interface name="velocity" />
+      <state_interface name="effort" />
+    </joint>
+    <joint name="joint_5">
+      <command_interface name="position">
+        <param name="min">-2.23</param>
+        <param name="max">2.23</param>
+      </command_interface>
+      <state_interface name="position">
+        <param name="initial_value">0.0</param>
+      </state_interface>
+      <state_interface name="velocity" />
+      <state_interface name="effort" />
+    </joint>
+    <joint name="joint_6">
+      <command_interface name="position">
+        <param name="min">{-2*pi}</param>
+        <param name="max">{2*pi}</param>
+      </command_interface>
+      <state_interface name="position">
+        <param name="initial_value">0.0</param>
+      </state_interface>
+      <state_interface name="velocity" />
+      <state_interface name="effort" />
+    </joint>
+  </ros2_control>
+  <joint name="base_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0" />
+    <parent link="world" />
+    <child link="base_link" />
+  </joint>
+  <link name="base_link">
+    <inertial>
+      <origin rpy="0 0 0" xyz="-0.000648 -0.000166 0.084487" />
+      <mass value="1.697" />
+      <inertia ixx="0.004622" ixy="9E-06" ixz="6E-05" iyy="0.004495" iyz="9E-06" izz="0.002079" />
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0" />
+      <geometry>
+        <mesh
+          filename="file:///opt/ros/humble/share/kortex_description/arms/gen3/6dof/meshes/base_link.STL" />
+      </geometry>
+      <material name="">
+        <color rgba="0.75294 0.75294 0.75294 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0" />
+      <geometry>
+        <mesh
+          filename="file:///opt/ros/humble/share/kortex_description/arms/gen3/6dof/meshes/base_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <link name="shoulder_link">
+    <inertial>
+      <origin rpy="0 0 0" xyz="-2.3E-05 -0.010364 -0.07336" />
+      <mass value="1.377" />
+      <inertia ixx="0.00457" ixy="1E-06" ixz="2E-06" iyy="0.004831" iyz="0.000448" izz="0.001409" />
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0" />
+      <geometry>
+        <mesh
+          filename="file:///opt/ros/humble/share/kortex_description/arms/gen3/6dof/meshes/shoulder_link.STL" />
+      </geometry>
+      <material name="">
+        <color rgba="0.75294 0.75294 0.75294 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0" />
+      <geometry>
+        <mesh
+          filename="file:///opt/ros/humble/share/kortex_description/arms/gen3/6dof/meshes/shoulder_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint name="joint_1" type="continuous">
+    <origin rpy="-3.1416 0.0 0.0" xyz="0 0 0.15643" />
+    <parent link="base_link" />
+    <child link="shoulder_link" />
+    <axis xyz="0 0 1" />
+    <limit effort="39" velocity="1.3963" />
+  </joint>
+  <link name="bicep_link">
+    <inertial>
+      <origin rpy="0 0 0" xyz="3.5E-05 -0.208207 -0.01889" />
+      <mass value="1.262" />
+      <inertia ixx="0.046752" ixy="-9E-06" ixz="0" iyy="0.00085" iyz="-9.8E-05" izz="0.047188" />
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0" />
+      <geometry>
+        <mesh
+          filename="file:///opt/ros/humble/share/kortex_description/arms/gen3/6dof/meshes/bicep_link.STL" />
+      </geometry>
+      <material name="">
+        <color rgba="0.75294 0.75294 0.75294 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0" />
+      <geometry>
+        <mesh
+          filename="file:///opt/ros/humble/share/kortex_description/arms/gen3/6dof/meshes/bicep_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint name="joint_2" type="revolute">
+    <origin rpy="1.5708 0.0 0.0" xyz="0 0.005375 -0.12838" />
+    <parent link="shoulder_link" />
+    <child link="bicep_link" />
+    <axis xyz="0 0 1" />
+    <limit effort="39" lower="-2.24" upper="2.24" velocity="1.3963" />
+  </joint>
+  <link name="forearm_link">
+    <inertial>
+      <origin rpy="0 0 0" xyz="1.8E-05 0.076168 -0.01397" />
+      <mass value="0.93" />
+      <inertia ixx="0.008292" ixy="-1E-06" ixz="0" iyy="0.000628" iyz="0.000432" izz="0.008464" />
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0" />
+      <geometry>
+        <mesh
+          filename="file:///opt/ros/humble/share/kortex_description/arms/gen3/6dof/meshes/forearm_link.STL" />
+      </geometry>
+      <material name="">
+        <color rgba="0.75294 0.75294 0.75294 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0" />
+      <geometry>
+        <mesh
+          filename="file:///opt/ros/humble/share/kortex_description/arms/gen3/6dof/meshes/forearm_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint name="joint_3" type="revolute">
+    <origin rpy="3.1416 0 0" xyz="0 -0.41 0" />
+    <parent link="bicep_link" />
+    <child link="forearm_link" />
+    <axis xyz="0 0 1" />
+    <limit effort="39" lower="-2.57" upper="2.57" velocity="1.3963" />
+  </joint>
+  <link name="spherical_wrist_1_link">
+    <inertial>
+      <origin rpy="0 0 0" xyz="-1E-06 0.008486 -0.062937" />
+      <mass value="0.6781" />
+      <inertia ixx="0.001645" ixy="0" ixz="0" iyy="0.001666" iyz="-0.000234" izz="0.000389" />
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0" />
+      <geometry>
+        <mesh
+          filename="file:///opt/ros/humble/share/kortex_description/arms/gen3/6dof/meshes/spherical_wrist_1_link.STL" />
+      </geometry>
+      <material name="">
+        <color rgba="0.75294 0.75294 0.75294 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0" />
+      <geometry>
+        <mesh
+          filename="file:///opt/ros/humble/share/kortex_description/arms/gen3/6dof/meshes/spherical_wrist_1_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint name="joint_4" type="continuous">
+    <origin rpy="1.5708 0.0 0.0" xyz="0 0.20843 -0.006375" />
+    <parent link="forearm_link" />
+    <child link="spherical_wrist_1_link" />
+    <axis xyz="0 0 1" />
+    <limit effort="9" velocity="1.2218" />
+  </joint>
+  <link name="spherical_wrist_2_link">
+    <inertial>
+      <origin rpy="0 0 0" xyz="-1E-06 0.046429 -0.008704" />
+      <mass value="0.678" />
+      <inertia ixx="0.001685" ixy="0" ixz="0" iyy="0.0004" iyz="0.000255" izz="0.001696" />
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0" />
+      <geometry>
+        <mesh
+          filename="file:///opt/ros/humble/share/kortex_description/arms/gen3/6dof/meshes/spherical_wrist_2_link.STL" />
+      </geometry>
+      <material name="">
+        <color rgba="0.75294 0.75294 0.75294 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0" />
+      <geometry>
+        <mesh
+          filename="file:///opt/ros/humble/share/kortex_description/arms/gen3/6dof/meshes/spherical_wrist_2_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint name="joint_5" type="revolute">
+    <origin rpy="-1.5708 0.0 0.0" xyz="0 -0.00017505 -0.10593" />
+    <parent link="spherical_wrist_1_link" />
+    <child link="spherical_wrist_2_link" />
+    <axis xyz="0 0 1" />
+    <limit effort="9" lower="-2.09" upper="2.09" velocity="1.2218" />
+  </joint>
+  <link name="bracelet_link">
+    <inertial>
+      <origin rpy="0 0 0" xyz="-9.3E-05 0.000132 -0.022905" />
+      <mass value="0.364" />
+      <inertia ixx="0.000214" ixy="0" ixz="1E-06" iyy="0.000223" iyz="-2E-06" izz="0.00024" />
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0" />
+      <geometry>
+        <mesh
+          filename="file:///opt/ros/humble/share/kortex_description/arms/gen3/6dof/meshes/bracelet_no_vision_link.STL" />
+      </geometry>
+      <material name="">
+        <color rgba="0.75294 0.75294 0.75294 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0" />
+      <geometry>
+        <mesh
+          filename="file:///opt/ros/humble/share/kortex_description/arms/gen3/6dof/meshes/bracelet_no_vision_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint name="joint_6" type="continuous">
+    <origin rpy="1.5708 0.0 0.0" xyz="0 0.10593 -0.00017505" />
+    <parent link="spherical_wrist_2_link" />
+    <child link="bracelet_link" />
+    <axis xyz="0 0 1" />
+    <limit effort="9" velocity="1.2218" />
+  </joint>
+  <link name="end_effector_link" />
+  <joint name="end_effector" type="fixed">
+    <origin rpy="3.14159265358979 1.09937075168372E-32 3.14159265358979"
+      xyz="0 0 -0.0615250000000001" />
+    <parent link="bracelet_link" />
+    <child link="end_effector_link" />
+    <axis xyz="0 0 0" />
+  </joint> <!-- Tool frame used by the arm -->
+  <link name="tool_frame" />
+  <joint name="tool_frame_joint" type="fixed">
+    <origin rpy="0 0 1.57079632679" xyz="0 0 0.130" />
+    <parent link="end_effector_link" />
+    <child link="tool_frame" />
+    <axis xyz="0 0 0" />
+  </joint> <!-- Gripper description -->
+  <joint name="gripper_base_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0" />
+    <parent link="end_effector_link" />
+    <child link="gripper_base_link" />
+    <axis xyz="0 0 0" />
+  </joint>
+  <link name="gripper_base_link">
+    <inertial>
+      <origin rpy="0 0 0" xyz="4.03E-06 1.08E-05 0.041397" />
+      <mass value="0.1395" />
+      <inertia ixx="0.00011614" ixy="1E-08" ixz="4E-08" iyy="0.00010327" iyz="0" izz="9.707E-05" />
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0" />
+      <geometry>
+        <mesh
+          filename="file:///opt/ros/humble/share/kortex_description/grippers/gen3_lite_2f/meshes/gripper_base_link.STL" />
+      </geometry>
+      <material name="">
+        <color rgba="0.803 0.824 0.820 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0" />
+      <geometry>
+        <mesh
+          filename="file:///opt/ros/humble/share/kortex_description/grippers/gen3_lite_2f/meshes/gripper_base_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <gazebo reference="gripper_base_link">
+    <material>Kortex/Gray</material>
+  </gazebo>
+  <link name="right_finger_prox_link">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0.020257 0.0063483 6.991E-05" />
+      <mass value="0.018385" />
+      <inertia ixx="2.29E-06" ixy="1.43E-06" ixz="0" iyy="4.56E-06" iyz="0" izz="4.77E-06" />
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0" />
+      <geometry>
+        <mesh
+          filename="file:///opt/ros/humble/share/kortex_description/grippers/gen3_lite_2f/meshes/right_finger_prox_link.STL" />
+      </geometry>
+      <material name="">
+        <color rgba="0.803 0.824 0.820 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0" />
+      <geometry>
+        <mesh
+          filename="file:///opt/ros/humble/share/kortex_description/grippers/gen3_lite_2f/meshes/right_finger_prox_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <gazebo reference="right_finger_prox_link">
+    <material>Kortex/Gray</material>
+  </gazebo> <!-- TODO(MarqRazz) look into why the joint and
+  limits needed to be flipped and modified -->
+  <joint name="right_finger_bottom_joint" type="revolute">
+    <origin rpy="1.571 0.611 1.571" xyz="0 -0.030501 0.070003" />
+    <parent link="gripper_base_link" />
+    <child link="right_finger_prox_link" />
+    <axis xyz="0 0 -1" />
+    <limit effort="50" lower="0.0" upper="0.85" velocity="0.6" />
+  </joint>
+  <link name="right_finger_dist_link">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0.018488 0.0011091 0" />
+      <mass value="0.010748" />
+      <inertia ixx="6.3E-07" ixy="3.2E-07" ixz="0" iyy="1.83E-06" iyz="0" izz="1.61E-06" />
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0" />
+      <geometry>
+        <mesh
+          filename="file:///opt/ros/humble/share/kortex_description/grippers/gen3_lite_2f/meshes/right_finger_dist_link.STL" />
+      </geometry>
+      <material name="">
+        <color rgba="0 0.055 0.525 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0" />
+      <geometry>
+        <mesh
+          filename="file:///opt/ros/humble/share/kortex_description/grippers/gen3_lite_2f/meshes/right_finger_dist_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <gazebo reference="right_finger_dist_link">
+    <material>Kortex/Blue</material>
+  </gazebo>
+  <joint name="right_finger_tip_joint" type="revolute">
+    <origin rpy="0 0 0" xyz="-0.045636 0.020423 0" />
+    <parent link="right_finger_prox_link" />
+    <child link="right_finger_dist_link" />
+    <axis xyz="0 0 1" />
+    <limit effort="1000" lower="-0.50" upper="0.21" velocity="1000" /> <!--limit
+    lower="-1.03" upper="0.21" effort="1000" velocity="1000" /-->
+    <mimic joint="right_finger_bottom_joint" multiplier="-0.276" offset="-0.1" />
+  </joint>
+  <link name="left_finger_prox_link">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0.020257 0.0063483 6.99E-05" />
+      <mass value="0.018385" />
+      <inertia ixx="2.29E-06" ixy="1.43E-06" ixz="0" iyy="4.56E-06" iyz="0" izz="4.77E-06" />
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0" />
+      <geometry>
+        <mesh
+          filename="file:///opt/ros/humble/share/kortex_description/grippers/gen3_lite_2f/meshes/left_finger_prox_link.STL" />
+      </geometry>
+      <material name="">
+        <color rgba="0.803 0.824 0.820 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0" />
+      <geometry>
+        <mesh
+          filename="file:///opt/ros/humble/share/kortex_description/grippers/gen3_lite_2f/meshes/left_finger_prox_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <gazebo reference="left_finger_prox_link">
+    <material>Kortex/Gray</material>
+  </gazebo>
+  <joint name="left_finger_bottom_joint" type="revolute">
+    <origin rpy="-1.571 0.611 -1.571" xyz="0 0.0305 0.070003" />
+    <parent link="gripper_base_link" />
+    <child link="left_finger_prox_link" />
+    <axis xyz="0 0 1" />
+    <limit effort="1000" lower="0.0" upper="0.85" velocity="1000" />
+    <mimic joint="right_finger_bottom_joint" multiplier="1.0" offset="0.0" />
+  </joint>
+  <link name="left_finger_dist_link">
+    <inertial>
+      <origin rpy="0 0 0" xyz="-0.018488 0.0011091 0" />
+      <mass value="0.010748" />
+      <inertia ixx="6.3E-07" ixy="3.2E-07" ixz="0" iyy="1.83E-06" iyz="0" izz="1.61E-06" />
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0" />
+      <geometry>
+        <mesh
+          filename="file:///opt/ros/humble/share/kortex_description/grippers/gen3_lite_2f/meshes/left_finger_dist_link.STL" />
+      </geometry>
+      <material name="">
+        <color rgba="0 0.055 0.525 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0" />
+      <geometry>
+        <mesh
+          filename="file:///opt/ros/humble/share/kortex_description/grippers/gen3_lite_2f/meshes/left_finger_dist_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <gazebo reference="left_finger_dist_link">
+    <material>Kortex/Blue</material>
+  </gazebo>
+  <joint name="left_finger_tip_joint" type="revolute">
+    <origin rpy="0 0 0" xyz="-0.045636 -0.020423 6.9901E-05" />
+    <parent link="left_finger_prox_link" />
+    <child link="left_finger_dist_link" />
+    <axis xyz="0 0 -1" />
+    <limit effort="1000" lower="-0.50" upper="0.21" velocity="1000" /> <!--limit
+    lower="-1.03" upper="0.21" effort="1000" velocity="1000" /-->
+    <mimic joint="right_finger_bottom_joint" multiplier="-0.276" offset="-0.1" />
+  </joint>
+</robot>
